@@ -15,19 +15,25 @@
 
 @implementation ViewController
 
-@synthesize X;
-@synthesize Y;
-@synthesize Z;
-@synthesize W;
-@synthesize quaternionX;
-@synthesize quaternionY;
-@synthesize quaternionZ;
-@synthesize quaternionW;
+@synthesize X1;
+@synthesize Y1;
+@synthesize Z1;
+@synthesize X2;
+@synthesize Y2;
+@synthesize Z2;
+
 
 double nQX;
 double nQY;
 double nQZ;
 double nQW;
+double iX1;
+double iY1;
+double iZ1;
+double iX2;
+double iY2;
+double iZ2;
+
 
 - (void)viewDidLoad
 {
@@ -41,26 +47,22 @@ double nQW;
     nQZ = 0.0;
     nQW = 1.0;
     
+    iX1 = 1.0;
+    iY1 = 0.0;
+    iZ1 = 0.0;
+    
+    iX2 = 0.0;
+    iY2 = 1.0;
+    iZ2 = 0.0;
+    
     motionManager = [[CMMotionManager alloc]init];
-    motionManager.deviceMotionUpdateInterval = 0.01;
+    motionManager.deviceMotionUpdateInterval = 0.1;
     [motionManager startDeviceMotionUpdates];
     if ([motionManager isGyroAvailable]) {
         if (![motionManager isGyroActive]) {
-            [motionManager setGyroUpdateInterval:0.01];
+            [motionManager setGyroUpdateInterval:0.1];
             [motionManager startGyroUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
-                //CMQuaternion quat = motionManager.deviceMotion.attitude.quaternion;
-                
-                
-                //double qX = quat.x;
-                //double qY = quat.y;
-                //double qZ = quat.z;
-                //double qW = quat.w;
-                
-                //double qX = 0.0;
-                //double qY = 0.7;
-                //double qZ = 0.0;
-                //double qW = 0.7;
-                
+    
                 double previousQX = nQX;
                 double previousQY = nQY;
                 double previousQZ = nQZ;
@@ -74,20 +76,11 @@ double nQW;
                 NSLog(@"rY: %04f", rotationY);
                 NSLog(@"rZ: %04f", rotationZ);
                 
-                //nQX = nQX - rotationZ * nQX / 2 + rotationY * nQZ / 2 + rotationX * nQW / 2;
-                //nQY = rotationZ * nQX / 2 + nQY - rotationX * nQZ / 2 + rotationY * nQW /2;
-                //nQZ = - rotationY * nQX / 2 + rotationX * nQY / 2 + nQZ + rotationZ * nQW / 2;
-                //nQW = rotationX * nQX / 2 + rotationY * nQY / 2 + rotationZ * nQZ / 2 + nQW;
                 
                 nQX = previousQX + rotationZ * previousQY / 20 - rotationY * previousQZ / 20 + rotationX * previousQW / 20;
                 nQY = - rotationZ * previousQX / 20 + previousQY + rotationX * previousQZ / 20 + rotationY * previousQW / 20;
                 nQZ = rotationY * previousQX / 20 + rotationX * previousQY / 20+ previousQZ + rotationZ * previousQW / 20;
                 nQW = - rotationX * previousQX / 20 - rotationY * previousQY / 20 - rotationZ * previousQZ / 20 + previousQW;
-                
-                //nQX = previousQX - rotationX * previousQY / 20 - rotationY * previousQZ / 20 - rotationZ * previousQW / 20;
-                //nQY = rotationX * previousQX / 20 + previousQY + rotationZ * previousQZ / 20 - rotationY * previousQW / 20;
-                //nQZ = rotationY * previousQX / 20 - rotationZ * previousQY / 20 + previousQZ + rotationX * previousQW / 20;
-                //nQW = rotationZ * previousQX / 20 + rotationY * previousQY / 20 - rotationX * previousQZ / 20 + previousQW;
                 
                 
                 double magnitude = sqrt(nQX*nQX + nQY * nQY + nQZ * nQZ + nQW * nQW);
@@ -96,76 +89,67 @@ double nQW;
                 nQZ = nQZ / magnitude;
                 nQW = nQW / magnitude;
                 
-                //NSLog(@"X: %04f", nQX);
-                //NSLog(@"Y: %04f", nQY);
-                //NSLog(@"Z: %04f", nQZ);
-                //NSLog(@"W: %04f", nQW);
                 
-                iX = 0.0;
-                iY = 0.0;
-                iZ = 0.0;
+                double rX1 = 0.0;
+                double rY1 = 0.0;
+                double rZ1 = 0.0;
                 
-                iY = [self.initialX.text doubleValue];
-                iX = [self.initialY.text doubleValue];
-                iZ = [self.initialZ.text doubleValue];
+                double qpX1 = 0.0;
+                double qpY1 = 0.0;
+                double qpZ1 = 0.0;
+                double qpW1 = 0.0;
                 
-                double rX = 0.0;
-                double rY = 0.0;
-                double rZ = 0.0;
-                double rW = 0.0;
                 
-                double qpX = 0.0;
-                double qpY = 0.0;
-                double qpZ = 0.0;
-                double qpW = 0.0;
-                
-                qpW = - nQX * iX - nQY * iY - nQZ * iZ;
-                qpX = nQW * iX + nQY * iZ - nQZ * iY;
-                qpY = nQW * iY - nQX * iZ + nQZ * iX;
-                qpZ = nQW * iZ + nQX * iY - nQY * iX;
+                qpW1 = - nQX * iX1 - nQY * iY1 - nQZ * iZ1;
+                qpX1 = nQW * iX1 + nQY * iZ1 - nQZ * iY1;
+                qpY1 = nQW * iY1 - nQX * iZ1 + nQZ * iX1;
+                qpZ1 = nQW * iZ1 + nQX * iY1 - nQY * iX1;
 
                 
-                rX = - qpW * nQX + qpX * nQW - qpY * nQZ + qpZ * nQY;
-                rY = - qpW * nQY + qpX * nQZ + qpY * nQW - qpZ * nQX;
-                rZ = - qpW * nQZ - qpX * nQY + qpY * nQX + qpZ * nQW;
-                
-                //rX = (nQX * nQX + nQY * nQY -nQZ * nQZ - nQW * nQW) * iX
-                //+ 2 * (nQY * nQZ - nQX * nQW) * iY
-                //+ 2 * (nQY * nQW + nQX * nQW) * iZ;
-                
-                //rY = 2 * (nQY * nQZ + nQX * nQW) * iX
-                //+ (nQZ * nQZ - nQW * nQW + nQX * nQX - nQY * nQY) * iY
-                //+ 2 * (nQZ * nQW - nQX * nQY) * iY;
-                
-                //rZ = 2 * (nQY * nQW - nQX * nQZ) * iY
-                //+ 2 * (nQZ * nQW + nQX * nQY) * iY
-                //+ (nQW * nQW - nQZ * nQZ - nQY * nQY + nQX * nQX) * iZ;
+                rX1 = - qpW1 * nQX + qpX1 * nQW - qpY1 * nQZ + qpZ1 * nQY;
+                rY1 = - qpW1 * nQY + qpX1 * nQZ + qpY1 * nQW - qpZ1 * nQX;
+                rZ1 = - qpW1 * nQZ - qpX1 * nQY + qpY1 * nQX + qpZ1 * nQW;
                 
                 
-                NSString *x = [[NSString alloc]initWithFormat:@"y: %06f", rX];
+                
+                NSString *resultX1 = [[NSString alloc]initWithFormat:@"x: %06f", rX1];
+                X1.text = resultX1;
+                
+                NSString *resultY1 = [[NSString alloc]initWithFormat:@"y: %06f", rY1];
+                Y1.text = resultY1;
                 
                 
-                NSString *y = [[NSString alloc]initWithFormat:@"x: %06f", rY];
-                Y.text = x;
-                X.text = y;
+                NSString *resultZ1 = [[NSString alloc]initWithFormat:@"z: %06f", rZ1];
+                Z1.text = resultZ1;
+
+                double rX2 = 0.0;
+                double rY2 = 0.0;
+                double rZ2 = 0.0;
                 
-                NSString *z = [[NSString alloc]initWithFormat:@"z: %06f", rZ];
-                Z.text = z;
+                double qpX2 = 0.0;
+                double qpY2 = 0.0;
+                double qpZ2 = 0.0;
+                double qpW2 = 0.0;
                 
-                NSString *w = [[NSString alloc]initWithFormat:@"w: %06f", rW];
-                W.text = w;
                 
-                NSString *quatX = [[NSString alloc]initWithFormat:@"qX: %06f", nQX];
-                quaternionX.text = quatX;
+                qpW2 = - nQX * iX2 - nQY * iY2 - nQZ * iZ2;
+                qpX2 = nQW * iX2 + nQY * iZ2 - nQZ * iY2;
+                qpY2 = nQW * iY2 - nQX * iZ2 + nQZ * iX2;
+                qpZ2 = nQW * iZ2 + nQX * iY2 - nQY * iX2;
                 
-                NSString *quatY = [[NSString alloc]initWithFormat:@"qY: %06f", nQY];
-                quaternionY.text = quatY;
                 
-                NSString *quatZ = [[NSString alloc]initWithFormat:@"qZ: %06f", nQZ];
-                quaternionZ.text = quatZ;
+                rX2 = - qpW2 * nQX + qpX2 * nQW - qpY2 * nQZ + qpZ2 * nQY;
+                rY2 = - qpW2 * nQY + qpX2 * nQZ + qpY2 * nQW - qpZ2 * nQX;
+                rZ2 = - qpW2 * nQZ - qpX2 * nQY + qpY2 * nQX + qpZ2 * nQW;
                 
-                NSString *quatW = [[NSString alloc]initWithFormat:@"qW: %06f", nQW];
-                quaternionW.text = quatW;
+                NSString *resultX2 = [[NSString alloc]initWithFormat:@"x: %06f", rX2];
+                X2.text = resultX2;
+                
+                NSString *resultY2 = [[NSString alloc]initWithFormat:@"y: %06f", rY2];
+                Y2.text = resultY2;
+                
+                NSString *resultZ2 = [[NSString alloc]initWithFormat:@"z: %06f", rZ2];
+                Z2.text = resultZ2;
                 
             }];
         }

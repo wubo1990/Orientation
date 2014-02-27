@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "921AA78D187E4EF800F40931"
-               BuildableName = "Orientation.app"
-               BlueprintName = "Orientation"
+               BlueprintIdentifier = "928B9E8218BFF70C008E63E8"
+               BuildableName = "StableFluids.app"
+               BlueprintName = "StableFluids"
                ReferencedContainer = "container:Orientation.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,33 +28,13 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "921AA7B1187E4EF800F40931"
-               BuildableName = "OrientationTests.xctest"
-               BlueprintName = "OrientationTests"
-               ReferencedContainer = "container:Orientation.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "928B9EA918BFF70C008E63E8"
-               BuildableName = "StableFluidsTests.xctest"
-               BlueprintName = "StableFluidsTests"
-               ReferencedContainer = "container:Orientation.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "921AA78D187E4EF800F40931"
-            BuildableName = "Orientation.app"
-            BlueprintName = "Orientation"
+            BlueprintIdentifier = "928B9E8218BFF70C008E63E8"
+            BuildableName = "StableFluids.app"
+            BlueprintName = "StableFluids"
             ReferencedContainer = "container:Orientation.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -71,9 +51,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "921AA78D187E4EF800F40931"
-            BuildableName = "Orientation.app"
-            BlueprintName = "Orientation"
+            BlueprintIdentifier = "928B9E8218BFF70C008E63E8"
+            BuildableName = "StableFluids.app"
+            BlueprintName = "StableFluids"
             ReferencedContainer = "container:Orientation.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -89,9 +69,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "921AA78D187E4EF800F40931"
-            BuildableName = "Orientation.app"
-            BlueprintName = "Orientation"
+            BlueprintIdentifier = "928B9E8218BFF70C008E63E8"
+            BuildableName = "StableFluids.app"
+            BlueprintName = "StableFluids"
             ReferencedContainer = "container:Orientation.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
