@@ -34,6 +34,9 @@ double iX2;
 double iY2;
 double iZ2;
 
+double sampleTime;
+double time1;
+double diffTime;
 
 - (void)viewDidLoad
 {
@@ -55,14 +58,26 @@ double iZ2;
     iY2 = 1.0;
     iZ2 = 0.0;
     
+    sampleTime = 0.0;
+    diffTime = 0.0;
+    
     motionManager = [[CMMotionManager alloc]init];
-    motionManager.deviceMotionUpdateInterval = 0.1;
+    motionManager.deviceMotionUpdateInterval = 0.01;
     [motionManager startDeviceMotionUpdates];
+    time1 = motionManager.deviceMotion.timestamp;
+    NSLog(@"time %f", time1);
     if ([motionManager isGyroAvailable]) {
         if (![motionManager isGyroActive]) {
-            [motionManager setGyroUpdateInterval:0.1];
+            [motionManager setGyroUpdateInterval:0.01];
             [motionManager startGyroUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
-    
+                CMDeviceMotion *motion = motionManager.deviceMotion;
+                time1 = motion.timestamp;
+                
+                diffTime = time1 - sampleTime;
+                sampleTime = time1;
+                
+                NSLog(@"time: %f, %f", sampleTime, time1);
+                
                 double previousQX = nQX;
                 double previousQY = nQY;
                 double previousQZ = nQZ;
@@ -72,15 +87,15 @@ double iZ2;
                 double rotationY = gyroData.rotationRate.y;
                 double rotationZ = gyroData.rotationRate.z;
                 
-                NSLog(@"rX: %04f", rotationX);
-                NSLog(@"rY: %04f", rotationY);
-                NSLog(@"rZ: %04f", rotationZ);
+                //NSLog(@"rX: %04f", rotationX);
+                //NSLog(@"rY: %04f", rotationY);
+                //NSLog(@"rZ: %04f", rotationZ);
                 
                 
-                nQX = previousQX + rotationZ * previousQY / 20 - rotationY * previousQZ / 20 + rotationX * previousQW / 20;
-                nQY = - rotationZ * previousQX / 20 + previousQY + rotationX * previousQZ / 20 + rotationY * previousQW / 20;
-                nQZ = rotationY * previousQX / 20 + rotationX * previousQY / 20+ previousQZ + rotationZ * previousQW / 20;
-                nQW = - rotationX * previousQX / 20 - rotationY * previousQY / 20 - rotationZ * previousQZ / 20 + previousQW;
+                nQX = previousQX + diffTime * rotationZ * previousQY / 2 - diffTime * rotationY * previousQZ / 2 + diffTime * rotationX * previousQW / 2;
+                nQY = - diffTime * rotationZ * previousQX / 2 + previousQY + diffTime * rotationX * previousQZ / 2 + diffTime * rotationY * previousQW / 2;
+                nQZ = diffTime * rotationY * previousQX / 2 + diffTime * rotationX * previousQY / 2 + previousQZ + diffTime * rotationZ * previousQW / 2;
+                nQW = - diffTime * rotationX * previousQX / 2 - diffTime * rotationY * previousQY / 2 - diffTime * rotationZ * previousQZ / 2 + previousQW;
                 
                 
                 double magnitude = sqrt(nQX*nQX + nQY * nQY + nQZ * nQZ + nQW * nQW);
