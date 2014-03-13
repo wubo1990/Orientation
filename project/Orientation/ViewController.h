@@ -6,8 +6,7 @@
 //  Copyright (c) 2014年 Bo Wu. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <CoreMotion/CoreMotion.h>
+#import "SliderViewController.h"
 
 @interface ViewController : UIViewController{
     CMMotionManager *motionManager;
@@ -21,8 +20,7 @@
 @property(weak, nonatomic) IBOutlet UILabel *X2;
 @property(weak, nonatomic) IBOutlet UILabel *Y2;
 @property(weak, nonatomic) IBOutlet UILabel *Z2;
+@property(weak, nonatomic) IBOutlet UILabel *updateFrequencyLabel;
 
-
-- (IBAction)begin;
 
 @end

@@ -7,7 +7,9 @@
 //
 
 #import "ViewController.h"
-#import <math.h>
+#import "AppDelegate.h"
+
+static const NSTimeInterval timeMin = 0.01;
 
 @interface ViewController ()
 
@@ -21,7 +23,7 @@
 @synthesize X2;
 @synthesize Y2;
 @synthesize Z2;
-
+@synthesize updateFrequencyLabel;
 
 double nQX;
 double nQY;
@@ -35,16 +37,15 @@ double iY2;
 double iZ2;
 
 double sampleTime;
-double time1;
 double diffTime;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
 }
 
-- (IBAction)begin{
+- (IBAction)startUpdatesWithSliderValue:(int)sliderValue
+{
     nQX = 0.0;
     nQY = 0.0;
     nQZ = 0.0;
@@ -61,22 +62,56 @@ double diffTime;
     sampleTime = 0.0;
     diffTime = 0.0;
     
+    NSTimeInterval delta = 0.005;
+    NSTimeInterval updateInterval = timeMin + delta * sliderValue;
+    
+    int updateFrequency = 1 / updateInterval;
+    
+    NSLog(@"%d", updateFrequency);
     motionManager = [[CMMotionManager alloc]init];
     motionManager.deviceMotionUpdateInterval = 0.01;
     [motionManager startDeviceMotionUpdates];
-    time1 = motionManager.deviceMotion.timestamp;
-    NSLog(@"time %f", time1);
     if ([motionManager isGyroAvailable]) {
         if (![motionManager isGyroActive]) {
             [motionManager setGyroUpdateInterval:0.01];
             [motionManager startGyroUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
-                CMDeviceMotion *motion = motionManager.deviceMotion;
-                time1 = motion.timestamp;
+                //CMDeviceMotion *motion = motionManager.deviceMotion;
+                CMAttitude *attitude = motionManager.deviceMotion.attitude;
+                CMRotationMatrix rm = attitude.rotationMatrix;
+                CMQuaternion quat = motionManager.deviceMotion.attitude.quaternion;
                 
-                diffTime = time1 - sampleTime;
-                sampleTime = time1;
+                double m11 = rm.m11; double m12 = rm.m12; double m13 = rm.m13;
+                double m21 = rm.m21; double m22 = rm.m22; double m23 = rm.m23;
+                double m31 = rm.m31; double m32 = rm.m32; double m33 = rm.m33;
                 
-                NSLog(@"time: %f, %f", sampleTime, time1);
+                double qX = quat.x;
+                double qY = quat.y;
+                double qZ = quat.z;
+                double qW = quat.w;
+                
+                double qm11 = qW * qW + qX * qX - qY * qY - qZ * qZ;
+                double qm12 = 2 * qX * qY - 2 * qZ * qW;
+                double qm13 = 2 * qX * qZ + 2 * qY * qW;
+                double qm21 = 2 * qX * qY + 2 * qZ * qW;
+                double qm22 = qW * qW - qX * qX + qY * qY - qZ * qZ;
+                double qm23 = 2 * qY * qZ - 2 * qX * qW;
+                double qm31 = 2 * qX * qZ - 2 * qY * qW;
+                double qm32 = 2 * qY * qZ + 2 * qX * qW;
+                double qm33 = qW * qW - qX * qX - qY * qY + qZ * qZ;
+                
+                
+                NSLog(@"diff of m11: %f", m11 - qm11);
+                NSLog(@"diff of m12: %f", m12 - qm12);
+                NSLog(@"diff of m13: %f", m13 - qm13);
+                
+                double time = gyroData.timestamp;
+                
+                
+                
+                diffTime = time - sampleTime;
+                //NSLog(@"time: %f, %f", sampleTime, time);
+                sampleTime = time;
+                
                 
                 double previousQX = nQX;
                 double previousQY = nQY;
@@ -86,11 +121,6 @@ double diffTime;
                 double rotationX = gyroData.rotationRate.x;
                 double rotationY = gyroData.rotationRate.y;
                 double rotationZ = gyroData.rotationRate.z;
-                
-                //NSLog(@"rX: %04f", rotationX);
-                //NSLog(@"rY: %04f", rotationY);
-                //NSLog(@"rZ: %04f", rotationZ);
-                
                 
                 nQX = previousQX + diffTime * rotationZ * previousQY / 2 - diffTime * rotationY * previousQZ / 2 + diffTime * rotationX * previousQW / 2;
                 nQY = - diffTime * rotationZ * previousQX / 2 + previousQY + diffTime * rotationX * previousQZ / 2 + diffTime * rotationY * previousQW / 2;
@@ -103,6 +133,17 @@ double diffTime;
                 nQY = nQY / magnitude;
                 nQZ = nQZ / magnitude;
                 nQW = nQW / magnitude;
+                
+                
+                double nqm11 = nQW * nQW + nQX * nQX - nQY * nQY - nQZ * nQZ;
+                double nqm12 = 2 * nQX * nQY - 2 * nQZ * nQW;
+                double nqm13 = 2 * nQX * nQZ + 2 * nQY * nQW;
+                double nqm21 = 2 * nQX * nQY + 2 * nQZ * nQW;
+                double nqm22 = nQW * nQW - nQX * nQX + nQY * nQY - nQZ * nQZ;
+                double nqm23 = 2 * nQY * nQZ - 2 * nQX * nQW;
+                double nqm31 = 2 * nQX * nQZ - 2 * nQY * nQW;
+                double nqm32 = 2 * nQY * nQZ + 2 * nQX * nQW;
+                double nqm33 = nQW * nQW - nQX * nQX - nQY * nQY + nQZ * nQZ;
                 
                 
                 double rX1 = 0.0;
@@ -165,7 +206,6 @@ double diffTime;
                 
                 NSString *resultZ2 = [[NSString alloc]initWithFormat:@"z: %06f", rZ2];
                 Z2.text = resultZ2;
-                
             }];
         }
     }
@@ -173,7 +213,31 @@ double diffTime;
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"NO GYRO" message:@"GET A GYRO" delegate:self cancelButtonTitle:@"DONE" otherButtonTitles: nil];
         [alert show];
     }
+    if ([motionManager isAccelerometerAvailable]) {
+        if (![motionManager isAccelerometerActive]) {
+            [motionManager setAccelerometerUpdateInterval:0.01];
+            [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accDate, NSError *error){
+             
+             
+             
+             
+            }];
+        }
+    }
     
+    if ([motionManager isMagnetometerAvailable]) {
+        if (![motionManager isMagnetometerActive]) {
+            [motionManager setMagnetometerUpdateInterval:0.01];
+            [motionManager startMagnetometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMMagnetometerData *magDate, NSError *error){
+              
+                
+                
+                
+            }];
+        }
+    }
+    
+    self.updateFrequencyLabel.text = [NSString stringWithFormat:@"%d HZ", updateFrequency];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
