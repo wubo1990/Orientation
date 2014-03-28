@@ -7,9 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "AppDelegate.h"
-
-static const NSTimeInterval timeMin = 0.01;
 
 @interface ViewController ()
 
@@ -17,21 +14,32 @@ static const NSTimeInterval timeMin = 0.01;
 
 @implementation ViewController
 
+
+//Label for the first result vector for x-axis of phone
 @synthesize X1;
 @synthesize Y1;
 @synthesize Z1;
+
+//Label for the second result vector for y-axis of phone
 @synthesize X2;
 @synthesize Y2;
 @synthesize Z2;
+
+//slider for updating the frequency
 @synthesize updateFrequencyLabel;
 
+//Quaternion from the updating of the previous quaternion, named as new quaternion
 double nQX;
 double nQY;
 double nQZ;
 double nQW;
+
+//Initial vector for x-axis
 double iX1;
 double iY1;
 double iZ1;
+
+//Initial vector for y-axis
 double iX2;
 double iY2;
 double iZ2;
@@ -44,17 +52,20 @@ double diffTime;
     [super viewDidLoad];
 }
 
-- (IBAction)startUpdatesWithSliderValue:(int)sliderValue
+- (IBAction)startUpdatesWithSliderValue:(id)sender
 {
+    //Initialize the quaternion for (0, 0, 0, 1). Only the scaler part of quaterion is 1
     nQX = 0.0;
     nQY = 0.0;
     nQZ = 0.0;
     nQW = 1.0;
     
+    //Initialize the x-axis is (1, 0, 0)
     iX1 = 1.0;
     iY1 = 0.0;
     iZ1 = 0.0;
     
+    //Initialized the y-axis is （0, 1, 0)
     iX2 = 0.0;
     iY2 = 1.0;
     iZ2 = 0.0;
@@ -62,33 +73,49 @@ double diffTime;
     sampleTime = 0.0;
     diffTime = 0.0;
     
-    NSTimeInterval delta = 0.005;
-    NSTimeInterval updateInterval = timeMin + delta * sliderValue;
+    //Set up the slider for the sampling interval
+    UISlider *slider = (UISlider *) sender;
+    float sliderVal = slider.value * 100;
+    NSInteger updateFrequency = lround(sliderVal);
+    float updateInterval = 1.0 / updateFrequency;
     
-    int updateFrequency = 1 / updateInterval;
+    NSLog(@"%f, %d", updateInterval, updateFrequency);
     
-    NSLog(@"%d", updateFrequency);
-    motionManager = [[CMMotionManager alloc]init];
-    motionManager.deviceMotionUpdateInterval = 0.01;
+    //Initialized the motion manager
+    motionManager = [[CMMotionManager alloc] init];
+    
+    //Set up the device updating interval
+    motionManager.deviceMotionUpdateInterval = updateInterval;
+    
+    //Start the device motion updating
     [motionManager startDeviceMotionUpdates];
     if ([motionManager isGyroAvailable]) {
         if (![motionManager isGyroActive]) {
-            [motionManager setGyroUpdateInterval:0.01];
+            //Set up the gyro updating interval
+            [motionManager setGyroUpdateInterval:updateInterval];
+            //The push approach
             [motionManager startGyroUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
-                //CMDeviceMotion *motion = motionManager.deviceMotion;
+                /*
+                //Attitude contains the rotation matrix
                 CMAttitude *attitude = motionManager.deviceMotion.attitude;
+                //Rotaion matrix from the attitude
                 CMRotationMatrix rm = attitude.rotationMatrix;
+                //The quaternion form the device motion
                 CMQuaternion quat = motionManager.deviceMotion.attitude.quaternion;
                 
+                
+                //The rotation matrix from the attitude
                 double m11 = rm.m11; double m12 = rm.m12; double m13 = rm.m13;
                 double m21 = rm.m21; double m22 = rm.m22; double m23 = rm.m23;
                 double m31 = rm.m31; double m32 = rm.m32; double m33 = rm.m33;
                 
+                //The quaterion form the attitude
                 double qX = quat.x;
                 double qY = quat.y;
                 double qZ = quat.z;
                 double qW = quat.w;
                 
+                //The rotation matrix from the caculation by the quaterion form the attitude by equation 2
                 double qm11 = qW * qW + qX * qX - qY * qY - qZ * qZ;
                 double qm12 = 2 * qX * qY - 2 * qZ * qW;
                 double qm13 = 2 * qX * qZ + 2 * qY * qW;
@@ -99,42 +126,39 @@ double diffTime;
                 double qm32 = 2 * qY * qZ + 2 * qX * qW;
                 double qm33 = qW * qW - qX * qX - qY * qY + qZ * qZ;
                 
-                
-                NSLog(@"diff of m11: %f", m11 - qm11);
-                NSLog(@"diff of m12: %f", m12 - qm12);
-                NSLog(@"diff of m13: %f", m13 - qm13);
-                
+                */
+                 
+                //Timestamp of the gyro data
                 double time = gyroData.timestamp;
-                
-                
-                
                 diffTime = time - sampleTime;
-                //NSLog(@"time: %f, %f", sampleTime, time);
                 sampleTime = time;
                 
-                
+                //Set the current quaternion to the previous quaternion
                 double previousQX = nQX;
                 double previousQY = nQY;
                 double previousQZ = nQZ;
                 double previousQW = nQW;
                 
+                //Get the rotation rate
                 double rotationX = gyroData.rotationRate.x;
                 double rotationY = gyroData.rotationRate.y;
                 double rotationZ = gyroData.rotationRate.z;
                 
+                //Calculate the new quarternion from the previous quarternion and ratation rate by the the equation 7
                 nQX = previousQX + diffTime * rotationZ * previousQY / 2 - diffTime * rotationY * previousQZ / 2 + diffTime * rotationX * previousQW / 2;
                 nQY = - diffTime * rotationZ * previousQX / 2 + previousQY + diffTime * rotationX * previousQZ / 2 + diffTime * rotationY * previousQW / 2;
                 nQZ = diffTime * rotationY * previousQX / 2 + diffTime * rotationX * previousQY / 2 + previousQZ + diffTime * rotationZ * previousQW / 2;
                 nQW = - diffTime * rotationX * previousQX / 2 - diffTime * rotationY * previousQY / 2 - diffTime * rotationZ * previousQZ / 2 + previousQW;
                 
-                
+                //Normalize the quaterion
                 double magnitude = sqrt(nQX*nQX + nQY * nQY + nQZ * nQZ + nQW * nQW);
                 nQX = nQX / magnitude;
                 nQY = nQY / magnitude;
                 nQZ = nQZ / magnitude;
                 nQW = nQW / magnitude;
                 
-                
+                /*
+                //The rotation matrix from the calculated quaternion
                 double nqm11 = nQW * nQW + nQX * nQX - nQY * nQY - nQZ * nQZ;
                 double nqm12 = 2 * nQX * nQY - 2 * nQZ * nQW;
                 double nqm13 = 2 * nQX * nQZ + 2 * nQY * nQW;
@@ -145,11 +169,15 @@ double diffTime;
                 double nqm32 = 2 * nQY * nQZ + 2 * nQX * nQW;
                 double nqm33 = nQW * nQW - nQX * nQX - nQY * nQY + nQZ * nQZ;
                 
+                 */
                 
+                
+                //Initialze the result vector
                 double rX1 = 0.0;
                 double rY1 = 0.0;
                 double rZ1 = 0.0;
                 
+                //The dot product from quanternion and initial vector
                 double qpX1 = 0.0;
                 double qpY1 = 0.0;
                 double qpZ1 = 0.0;
@@ -161,13 +189,12 @@ double diffTime;
                 qpY1 = nQW * iY1 - nQX * iZ1 + nQZ * iX1;
                 qpZ1 = nQW * iZ1 + nQX * iY1 - nQY * iX1;
 
-                
+                //The result vector
                 rX1 = - qpW1 * nQX + qpX1 * nQW - qpY1 * nQZ + qpZ1 * nQY;
                 rY1 = - qpW1 * nQY + qpX1 * nQZ + qpY1 * nQW - qpZ1 * nQX;
                 rZ1 = - qpW1 * nQZ - qpX1 * nQY + qpY1 * nQX + qpZ1 * nQW;
                 
-                
-                
+                //Output the result vector
                 NSString *resultX1 = [[NSString alloc]initWithFormat:@"x: %06f", rX1];
                 X1.text = resultX1;
                 
@@ -187,7 +214,7 @@ double diffTime;
                 double qpZ2 = 0.0;
                 double qpW2 = 0.0;
                 
-                
+                //Compute the second vector
                 qpW2 = - nQX * iX2 - nQY * iY2 - nQZ * iZ2;
                 qpX2 = nQW * iX2 + nQY * iZ2 - nQZ * iY2;
                 qpY2 = nQW * iY2 - nQX * iZ2 + nQZ * iX2;
@@ -198,6 +225,7 @@ double diffTime;
                 rY2 = - qpW2 * nQY + qpX2 * nQZ + qpY2 * nQW - qpZ2 * nQX;
                 rZ2 = - qpW2 * nQZ - qpX2 * nQY + qpY2 * nQX + qpZ2 * nQW;
                 
+                //Output the second vector
                 NSString *resultX2 = [[NSString alloc]initWithFormat:@"x: %06f", rX2];
                 X2.text = resultX2;
                 
@@ -213,11 +241,15 @@ double diffTime;
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"NO GYRO" message:@"GET A GYRO" delegate:self cancelButtonTitle:@"DONE" otherButtonTitles: nil];
         [alert show];
     }
-    if ([motionManager isAccelerometerAvailable]) {
+    
+    /*
+     if ([motionManager isAccelerometerAvailable]) {
         if (![motionManager isAccelerometerActive]) {
             [motionManager setAccelerometerUpdateInterval:0.01];
-            [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accDate, NSError *error){
-             
+            [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accData, NSError *error){
+                double aX = accData.acceleration.x;
+                double aY = accData.acceleration.y;
+                double aZ = accData.acceleration.z;
              
              
              
@@ -228,15 +260,17 @@ double diffTime;
     if ([motionManager isMagnetometerAvailable]) {
         if (![motionManager isMagnetometerActive]) {
             [motionManager setMagnetometerUpdateInterval:0.01];
-            [motionManager startMagnetometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMMagnetometerData *magDate, NSError *error){
-              
+            [motionManager startMagnetometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMMagnetometerData *magData, NSError *error){
+                double mX = magData.magneticField.x;
+                double mY = magData.magneticField.y;
+                double mZ = magData.magneticField.z;
                 
                 
                 
             }];
         }
     }
-    
+    */
     self.updateFrequencyLabel.text = [NSString stringWithFormat:@"%d HZ", updateFrequency];
 }
 

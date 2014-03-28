@@ -6,9 +6,11 @@
 //  Copyright (c) 2014年 Bo Wu. All rights reserved.
 //
 
-#import "SliderViewController.h"
+#import <UIKit/UIKit.h>
+#import <CoreMotion/CoreMotion.h>
 
 @interface ViewController : UIViewController{
+    
     CMMotionManager *motionManager;
     NSOperationQueue *queue;
     
@@ -22,5 +24,7 @@
 @property(weak, nonatomic) IBOutlet UILabel *Z2;
 @property(weak, nonatomic) IBOutlet UILabel *updateFrequencyLabel;
 
+
+- (IBAction)startUpdatesWithSliderValue:(id)sender;
 
 @end

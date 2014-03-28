@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		92045B6C18CE797E000849A8 /* SliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92045B6B18CE797E000849A8 /* SliderViewController.m */; };
 		921AA792187E4EF800F40931 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921AA791187E4EF800F40931 /* Foundation.framework */; };
 		921AA794187E4EF800F40931 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921AA793187E4EF800F40931 /* CoreGraphics.framework */; };
 		921AA796187E4EF800F40931 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921AA795187E4EF800F40931 /* UIKit.framework */; };
@@ -63,8 +62,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		92045B6A18CE797E000849A8 /* SliderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SliderViewController.h; path = ../SliderViewController.h; sourceTree = "<group>"; };
-		92045B6B18CE797E000849A8 /* SliderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SliderViewController.m; path = ../SliderViewController.m; sourceTree = "<group>"; };
 		921AA78E187E4EF800F40931 /* Orientation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Orientation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		921AA791187E4EF800F40931 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		921AA793187E4EF800F40931 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -195,8 +192,6 @@
 		921AA797187E4EF800F40931 /* Orientation */ = {
 			isa = PBXGroup;
 			children = (
-				92045B6A18CE797E000849A8 /* SliderViewController.h */,
-				92045B6B18CE797E000849A8 /* SliderViewController.m */,
 				921AA7A0187E4EF800F40931 /* AppDelegate.h */,
 				921AA7A1187E4EF800F40931 /* AppDelegate.m */,
 				921AA7A3187E4EF800F40931 /* Main_iPhone.storyboard */,
@@ -446,7 +441,6 @@
 				921AA7AB187E4EF800F40931 /* ViewController.m in Sources */,
 				921AA7A2187E4EF800F40931 /* AppDelegate.m in Sources */,
 				921AA79E187E4EF800F40931 /* main.m in Sources */,
-				92045B6C18CE797E000849A8 /* SliderViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
