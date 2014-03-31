@@ -28,6 +28,8 @@
 //slider for updating the frequency
 @synthesize updateFrequencyLabel;
 
+@synthesize measuredFrequencyLabel;
+
 //Quaternion from the updating of the previous quaternion, named as new quaternion
 double nQX;
 double nQY;
@@ -44,16 +46,22 @@ double iX2;
 double iY2;
 double iZ2;
 
+int i;
+
 double sampleTime;
 double diffTime;
+double previousTime;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    gyroQueue = [[NSOperationQueue alloc]init];
 }
 
 - (IBAction)startUpdatesWithSliderValue:(id)sender
 {
+    
     //Initialize the quaternion for (0, 0, 0, 1). Only the scaler part of quaterion is 1
     nQX = 0.0;
     nQY = 0.0;
@@ -70,8 +78,11 @@ double diffTime;
     iY2 = 1.0;
     iZ2 = 0.0;
     
+    i = 0;
+    
     sampleTime = 0.0;
     diffTime = 0.0;
+    previousTime = 0.0;
     
     //Set up the slider for the sampling interval
     UISlider *slider = (UISlider *) sender;
@@ -79,7 +90,7 @@ double diffTime;
     NSInteger updateFrequency = lround(sliderVal);
     float updateInterval = 1.0 / updateFrequency;
     
-    NSLog(@"%f, %d", updateInterval, updateFrequency);
+    //NSLog(@"%f, %d", updateInterval, updateFrequency);
     
     //Initialized the motion manager
     motionManager = [[CMMotionManager alloc] init];
@@ -125,13 +136,16 @@ double diffTime;
                 double qm31 = 2 * qX * qZ - 2 * qY * qW;
                 double qm32 = 2 * qY * qZ + 2 * qX * qW;
                 double qm33 = qW * qW - qX * qX - qY * qY + qZ * qZ;
-                
                 */
-                 
+                
+                
                 //Timestamp of the gyro data
-                double time = gyroData.timestamp;
-                diffTime = time - sampleTime;
-                sampleTime = time;
+                sampleTime = gyroData.timestamp;
+                diffTime = sampleTime - previousTime;
+                previousTime = sampleTime;
+                
+                
+                NSLog(@"different time: %f", diffTime);
                 
                 //Set the current quaternion to the previous quaternion
                 double previousQX = nQX;
@@ -144,19 +158,23 @@ double diffTime;
                 double rotationY = gyroData.rotationRate.y;
                 double rotationZ = gyroData.rotationRate.z;
                 
-                //Calculate the new quarternion from the previous quarternion and ratation rate by the the equation 7
-                nQX = previousQX + diffTime * rotationZ * previousQY / 2 - diffTime * rotationY * previousQZ / 2 + diffTime * rotationX * previousQW / 2;
-                nQY = - diffTime * rotationZ * previousQX / 2 + previousQY + diffTime * rotationX * previousQZ / 2 + diffTime * rotationY * previousQW / 2;
-                nQZ = diffTime * rotationY * previousQX / 2 + diffTime * rotationX * previousQY / 2 + previousQZ + diffTime * rotationZ * previousQW / 2;
-                nQW = - diffTime * rotationX * previousQX / 2 - diffTime * rotationY * previousQY / 2 - diffTime * rotationZ * previousQZ / 2 + previousQW;
                 
-                //Normalize the quaterion
-                double magnitude = sqrt(nQX*nQX + nQY * nQY + nQZ * nQZ + nQW * nQW);
-                nQX = nQX / magnitude;
-                nQY = nQY / magnitude;
-                nQZ = nQZ / magnitude;
-                nQW = nQW / magnitude;
                 
+                if (i >= 1) {
+                    //Calculate the new quarternion from the previous quarternion and ratation rate by the the equation 7
+                    nQX = previousQX + diffTime * rotationZ * previousQY / 2 - diffTime * rotationY * previousQZ / 2 + diffTime * rotationX * previousQW / 2;
+                    nQY = - diffTime * rotationZ * previousQX / 2 + previousQY + diffTime * rotationX * previousQZ / 2 + diffTime * rotationY * previousQW / 2;
+                    nQZ = diffTime * rotationY * previousQX / 2 + diffTime * rotationX * previousQY / 2 + previousQZ + diffTime * rotationZ * previousQW / 2;
+                    nQW = - diffTime * rotationX * previousQX / 2 - diffTime * rotationY * previousQY / 2 - diffTime * rotationZ * previousQZ / 2 + previousQW;
+                    
+                    //Normalize the quaterion
+                    double magnitude = sqrt(nQX * nQX + nQY * nQY + nQZ * nQZ + nQW * nQW);
+                    nQX = nQX / magnitude;
+                    nQY = nQY / magnitude;
+                    nQZ = nQZ / magnitude;
+                    nQW = nQW / magnitude;
+                }
+
                 /*
                 //The rotation matrix from the calculated quaternion
                 double nqm11 = nQW * nQW + nQX * nQX - nQY * nQY - nQZ * nQZ;
@@ -225,6 +243,10 @@ double diffTime;
                 rY2 = - qpW2 * nQY + qpX2 * nQZ + qpY2 * nQW - qpZ2 * nQX;
                 rZ2 = - qpW2 * nQZ - qpX2 * nQY + qpY2 * nQX + qpZ2 * nQW;
                 
+                //double secondTime = gyroData.timestamp;
+                //NSLog(@"Second Time: %f", secondTime);
+                
+                
                 //Output the second vector
                 NSString *resultX2 = [[NSString alloc]initWithFormat:@"x: %06f", rX2];
                 X2.text = resultX2;
@@ -234,6 +256,14 @@ double diffTime;
                 
                 NSString *resultZ2 = [[NSString alloc]initWithFormat:@"z: %06f", rZ2];
                 Z2.text = resultZ2;
+                
+                int measuredFrequency = 1 / diffTime;
+                
+                NSString *measureedFrquencyString = [[NSString alloc]initWithFormat:@"%d", measuredFrequency];
+                measuredFrequencyLabel.text = measureedFrquencyString;
+                
+                i++;
+                
             }];
         }
     }
@@ -271,7 +301,7 @@ double diffTime;
         }
     }
     */
-    self.updateFrequencyLabel.text = [NSString stringWithFormat:@"%d HZ", updateFrequency];
+    self.updateFrequencyLabel.text = [NSString stringWithFormat:@"%ld HZ", (long)updateFrequency];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

@@ -74,7 +74,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="fGo-3V-tVw">
-                                <rect key="frame" x="18" y="275" width="284" height="34"/>
+                                <rect key="frame" x="18" y="275" width="284" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="startUpdatesWithSliderValue:" destination="vXZ-lx-hvc" eventType="valueChanged" id="d3J-RS-vjc"/>
@@ -88,7 +88,20 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Frequency" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8mk-Jp-rGl">
-                                <rect key="frame" x="145" y="316" width="94" height="21"/>
+                                <rect key="frame" x="183" y="316" width="94" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Measured Freq" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRW-JP-pfx">
+                                <rect key="frame" x="49" y="345" width="116" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Measured" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4A-EQ-N91">
+                                <rect key="frame" x="183" y="345" width="86" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -103,6 +116,7 @@
                         <outlet property="Y2" destination="UWz-Kz-mTY" id="Vfe-1O-VQs"/>
                         <outlet property="Z1" destination="T9f-gq-aHj" id="NF5-V7-PfZ"/>
                         <outlet property="Z2" destination="m5r-kz-hK5" id="71B-RC-E1w"/>
+                        <outlet property="measuredFrequencyLabel" destination="Q4A-EQ-N91" id="LTj-eH-nXo"/>
                         <outlet property="updateFrequencyLabel" destination="8mk-Jp-rGl" id="7UH-XT-S3d"/>
                     </connections>
                 </viewController>

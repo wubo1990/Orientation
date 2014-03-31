@@ -13,6 +13,8 @@
     
     CMMotionManager *motionManager;
     NSOperationQueue *queue;
+    NSOperationQueue *gyroQueue;
+    NSOperationQueue *accellQueue;
     
 }
 
@@ -23,6 +25,7 @@
 @property(weak, nonatomic) IBOutlet UILabel *Y2;
 @property(weak, nonatomic) IBOutlet UILabel *Z2;
 @property(weak, nonatomic) IBOutlet UILabel *updateFrequencyLabel;
+@property(weak, nonatomic) IBOutlet UILabel *measuredFrequencyLabel;
 
 
 - (IBAction)startUpdatesWithSliderValue:(id)sender;
