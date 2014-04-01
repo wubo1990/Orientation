@@ -272,7 +272,7 @@ double previousTime;
         [alert show];
     }
     
-    /*
+    
      if ([motionManager isAccelerometerAvailable]) {
         if (![motionManager isAccelerometerActive]) {
             [motionManager setAccelerometerUpdateInterval:0.01];
@@ -281,11 +281,14 @@ double previousTime;
                 double aY = accData.acceleration.y;
                 double aZ = accData.acceleration.z;
              
-             
+                NSLog(@"AcX: %f", aX);
+                NSLog(@"AcY: %f", aY);
+                NSLog(@"AcZ: %f", aZ);
              
             }];
         }
     }
+    
     
     if ([motionManager isMagnetometerAvailable]) {
         if (![motionManager isMagnetometerActive]) {
@@ -295,12 +298,14 @@ double previousTime;
                 double mY = magData.magneticField.y;
                 double mZ = magData.magneticField.z;
                 
-                
+                NSLog(@"MagX: %f", mX);
+                NSLog(@"MagY: %f", mY);
+                NSLog(@"MagZ: %f", mZ);
                 
             }];
         }
     }
-    */
+    
     self.updateFrequencyLabel.text = [NSString stringWithFormat:@"%ld HZ", (long)updateFrequency];
 }
 
