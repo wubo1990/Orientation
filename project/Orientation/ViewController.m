@@ -106,7 +106,7 @@ double previousTime;
             [motionManager setGyroUpdateInterval:updateInterval];
             //The push approach
             [motionManager startGyroUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMGyroData *gyroData, NSError *error) {
-                /*
+                
                 //Attitude contains the rotation matrix
                 CMAttitude *attitude = motionManager.deviceMotion.attitude;
                 //Rotaion matrix from the attitude
@@ -136,7 +136,18 @@ double previousTime;
                 double qm31 = 2 * qX * qZ - 2 * qY * qW;
                 double qm32 = 2 * qY * qZ + 2 * qX * qW;
                 double qm33 = qW * qW - qX * qX - qY * qY + qZ * qZ;
-                */
+                
+                //double diffM11 = m11 - qm11; double diffM12 = m12 - qm12; double diffM13 = m13 - qm13;
+                //double diffM21 = m21 - qm21; double diffM22 = m22 - qm22; double diffM23 = m23 - qm23;
+                //double diffM31 = m31 - qm31; double diffM32 = m32 - qm32; double diffM33 = m33 - qm33;
+                
+                NSLog(@"m1: %f, %f, %f", m11, m12, m13);
+                NSLog(@"m1: %f, %f, %f", m21, m22, m23);
+                NSLog(@"m1: %f, %f, %f", m31, m32, m33);
+                
+                NSLog(@"m2: %f, %f, %f", qm11, qm12, qm13);
+                NSLog(@"m2: %f, %f, %f", qm21, qm22, qm23);
+                NSLog(@"m2: %f, %f, %f", qm31, qm32, qm33);
                 
                 
                 //Timestamp of the gyro data
@@ -145,7 +156,7 @@ double previousTime;
                 previousTime = sampleTime;
                 
                 
-                NSLog(@"different time: %f", diffTime);
+                //NSLog(@"different time: %f", diffTime);
                 
                 //Set the current quaternion to the previous quaternion
                 double previousQX = nQX;
@@ -175,7 +186,7 @@ double previousTime;
                     nQW = nQW / magnitude;
                 }
 
-                /*
+                
                 //The rotation matrix from the calculated quaternion
                 double nqm11 = nQW * nQW + nQX * nQX - nQY * nQY - nQZ * nQZ;
                 double nqm12 = 2 * nQX * nQY - 2 * nQZ * nQW;
@@ -187,7 +198,13 @@ double previousTime;
                 double nqm32 = 2 * nQY * nQZ + 2 * nQX * nQW;
                 double nqm33 = nQW * nQW - nQX * nQX - nQY * nQY + nQZ * nQZ;
                 
-                 */
+                //double dm11 = m11 - nqm11; double dm12 = m12 - nqm12; double dm13 = m13 - nqm13;
+                //double dm21 = m21 - nqm21; double dm22 = m22 - nqm22; double dm23 = m23 - nqm23;
+                //double dm31 = m31 - nqm31; double dm32 = m32 - nqm32; double dm33 = m33 - nqm33;
+                
+                NSLog(@"m3: %f, %f, %f", nqm11, nqm12, nqm13);
+                NSLog(@"m3: %f, %f, %f", nqm21, nqm22, nqm23);
+                NSLog(@"m3: %f, %f, %f", nqm31, nqm32, nqm33);
                 
                 
                 //Initialze the result vector
@@ -275,15 +292,15 @@ double previousTime;
     
      if ([motionManager isAccelerometerAvailable]) {
         if (![motionManager isAccelerometerActive]) {
-            [motionManager setAccelerometerUpdateInterval:0.01];
+            [motionManager setAccelerometerUpdateInterval:updateInterval];
             [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accData, NSError *error){
                 double aX = accData.acceleration.x;
                 double aY = accData.acceleration.y;
                 double aZ = accData.acceleration.z;
              
-                NSLog(@"AcX: %f", aX);
-                NSLog(@"AcY: %f", aY);
-                NSLog(@"AcZ: %f", aZ);
+                //NSLog(@"AcX: %f", aX);
+                //NSLog(@"AcY: %f", aY);
+                //NSLog(@"AcZ: %f", aZ);
              
             }];
         }
@@ -292,15 +309,15 @@ double previousTime;
     
     if ([motionManager isMagnetometerAvailable]) {
         if (![motionManager isMagnetometerActive]) {
-            [motionManager setMagnetometerUpdateInterval:0.01];
+            [motionManager setMagnetometerUpdateInterval:updateInterval];
             [motionManager startMagnetometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMMagnetometerData *magData, NSError *error){
                 double mX = magData.magneticField.x;
                 double mY = magData.magneticField.y;
                 double mZ = magData.magneticField.z;
                 
-                NSLog(@"MagX: %f", mX);
-                NSLog(@"MagY: %f", mY);
-                NSLog(@"MagZ: %f", mZ);
+                //NSLog(@"MagX: %f", mX);
+                //NSLog(@"MagY: %f", mY);
+                //NSLog(@"MagZ: %f", mZ);
                 
             }];
         }
