@@ -23,25 +23,6 @@
 		921AA7BE187E4EF800F40931 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 921AA7BC187E4EF800F40931 /* InfoPlist.strings */; };
 		921AA7C0187E4EF800F40931 /* OrientationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 921AA7BF187E4EF800F40931 /* OrientationTests.m */; };
 		921AA7CA187E4F4800F40931 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921AA7C9187E4F4800F40931 /* CoreMotion.framework */; };
-		928B9E8418BFF70C008E63E8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921AA791187E4EF800F40931 /* Foundation.framework */; };
-		928B9E8518BFF70C008E63E8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921AA793187E4EF800F40931 /* CoreGraphics.framework */; };
-		928B9E8618BFF70C008E63E8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921AA795187E4EF800F40931 /* UIKit.framework */; };
-		928B9E8818BFF70C008E63E8 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928B9E8718BFF70C008E63E8 /* GLKit.framework */; };
-		928B9E8A18BFF70C008E63E8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928B9E8918BFF70C008E63E8 /* OpenGLES.framework */; };
-		928B9E9018BFF70C008E63E8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 928B9E8E18BFF70C008E63E8 /* InfoPlist.strings */; };
-		928B9E9218BFF70C008E63E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 928B9E9118BFF70C008E63E8 /* main.m */; };
-		928B9E9618BFF70C008E63E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 928B9E9518BFF70C008E63E8 /* AppDelegate.m */; };
-		928B9E9918BFF70C008E63E8 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 928B9E9718BFF70C008E63E8 /* Main_iPhone.storyboard */; };
-		928B9E9C18BFF70C008E63E8 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 928B9E9A18BFF70C008E63E8 /* Main_iPad.storyboard */; };
-		928B9E9E18BFF70C008E63E8 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 928B9E9D18BFF70C008E63E8 /* Shader.fsh */; };
-		928B9EA018BFF70C008E63E8 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 928B9E9F18BFF70C008E63E8 /* Shader.vsh */; };
-		928B9EA318BFF70C008E63E8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928B9EA218BFF70C008E63E8 /* ViewController.m */; };
-		928B9EA518BFF70C008E63E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 928B9EA418BFF70C008E63E8 /* Images.xcassets */; };
-		928B9EAB18BFF70C008E63E8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921AA7B3187E4EF800F40931 /* XCTest.framework */; };
-		928B9EAC18BFF70C008E63E8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921AA791187E4EF800F40931 /* Foundation.framework */; };
-		928B9EAD18BFF70C008E63E8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921AA795187E4EF800F40931 /* UIKit.framework */; };
-		928B9EB518BFF70C008E63E8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 928B9EB318BFF70C008E63E8 /* InfoPlist.strings */; };
-		928B9EB718BFF70C008E63E8 /* StableFluidsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 928B9EB618BFF70C008E63E8 /* StableFluidsTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,13 +32,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 921AA78D187E4EF800F40931;
 			remoteInfo = Orientation;
-		};
-		928B9EAE18BFF70C008E63E8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 921AA786187E4EF800F40931 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 928B9E8218BFF70C008E63E8;
-			remoteInfo = StableFluids;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -83,26 +57,6 @@
 		921AA7BD187E4EF800F40931 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		921AA7BF187E4EF800F40931 /* OrientationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrientationTests.m; sourceTree = "<group>"; };
 		921AA7C9187E4F4800F40931 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		928B9E8318BFF70C008E63E8 /* StableFluids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StableFluids.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		928B9E8718BFF70C008E63E8 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		928B9E8918BFF70C008E63E8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		928B9E8D18BFF70C008E63E8 /* StableFluids-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "StableFluids-Info.plist"; sourceTree = "<group>"; };
-		928B9E8F18BFF70C008E63E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		928B9E9118BFF70C008E63E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		928B9E9318BFF70C008E63E8 /* StableFluids-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StableFluids-Prefix.pch"; sourceTree = "<group>"; };
-		928B9E9418BFF70C008E63E8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		928B9E9518BFF70C008E63E8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		928B9E9818BFF70C008E63E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		928B9E9B18BFF70C008E63E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		928B9E9D18BFF70C008E63E8 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
-		928B9E9F18BFF70C008E63E8 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
-		928B9EA118BFF70C008E63E8 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		928B9EA218BFF70C008E63E8 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		928B9EA418BFF70C008E63E8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		928B9EAA18BFF70C008E63E8 /* StableFluidsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StableFluidsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		928B9EB218BFF70C008E63E8 /* StableFluidsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "StableFluidsTests-Info.plist"; sourceTree = "<group>"; };
-		928B9EB418BFF70C008E63E8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		928B9EB618BFF70C008E63E8 /* StableFluidsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StableFluidsTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,28 +81,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		928B9E8018BFF70C008E63E8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				928B9E8A18BFF70C008E63E8 /* OpenGLES.framework in Frameworks */,
-				928B9E8518BFF70C008E63E8 /* CoreGraphics.framework in Frameworks */,
-				928B9E8618BFF70C008E63E8 /* UIKit.framework in Frameworks */,
-				928B9E8818BFF70C008E63E8 /* GLKit.framework in Frameworks */,
-				928B9E8418BFF70C008E63E8 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		928B9EA718BFF70C008E63E8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				928B9EAB18BFF70C008E63E8 /* XCTest.framework in Frameworks */,
-				928B9EAD18BFF70C008E63E8 /* UIKit.framework in Frameworks */,
-				928B9EAC18BFF70C008E63E8 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -157,8 +89,6 @@
 			children = (
 				921AA797187E4EF800F40931 /* Orientation */,
 				921AA7B9187E4EF800F40931 /* OrientationTests */,
-				928B9E8B18BFF70C008E63E8 /* StableFluids */,
-				928B9EB018BFF70C008E63E8 /* StableFluidsTests */,
 				921AA790187E4EF800F40931 /* Frameworks */,
 				921AA78F187E4EF800F40931 /* Products */,
 			);
@@ -169,8 +99,6 @@
 			children = (
 				921AA78E187E4EF800F40931 /* Orientation.app */,
 				921AA7B2187E4EF800F40931 /* OrientationTests.xctest */,
-				928B9E8318BFF70C008E63E8 /* StableFluids.app */,
-				928B9EAA18BFF70C008E63E8 /* StableFluidsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -183,8 +111,6 @@
 				921AA793187E4EF800F40931 /* CoreGraphics.framework */,
 				921AA795187E4EF800F40931 /* UIKit.framework */,
 				921AA7B3187E4EF800F40931 /* XCTest.framework */,
-				928B9E8718BFF70C008E63E8 /* GLKit.framework */,
-				928B9E8918BFF70C008E63E8 /* OpenGLES.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -233,52 +159,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		928B9E8B18BFF70C008E63E8 /* StableFluids */ = {
-			isa = PBXGroup;
-			children = (
-				928B9E9418BFF70C008E63E8 /* AppDelegate.h */,
-				928B9E9518BFF70C008E63E8 /* AppDelegate.m */,
-				928B9E9718BFF70C008E63E8 /* Main_iPhone.storyboard */,
-				928B9E9A18BFF70C008E63E8 /* Main_iPad.storyboard */,
-				928B9E9D18BFF70C008E63E8 /* Shader.fsh */,
-				928B9E9F18BFF70C008E63E8 /* Shader.vsh */,
-				928B9EA118BFF70C008E63E8 /* ViewController.h */,
-				928B9EA218BFF70C008E63E8 /* ViewController.m */,
-				928B9EA418BFF70C008E63E8 /* Images.xcassets */,
-				928B9E8C18BFF70C008E63E8 /* Supporting Files */,
-			);
-			path = StableFluids;
-			sourceTree = "<group>";
-		};
-		928B9E8C18BFF70C008E63E8 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				928B9E8D18BFF70C008E63E8 /* StableFluids-Info.plist */,
-				928B9E8E18BFF70C008E63E8 /* InfoPlist.strings */,
-				928B9E9118BFF70C008E63E8 /* main.m */,
-				928B9E9318BFF70C008E63E8 /* StableFluids-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		928B9EB018BFF70C008E63E8 /* StableFluidsTests */ = {
-			isa = PBXGroup;
-			children = (
-				928B9EB618BFF70C008E63E8 /* StableFluidsTests.m */,
-				928B9EB118BFF70C008E63E8 /* Supporting Files */,
-			);
-			path = StableFluidsTests;
-			sourceTree = "<group>";
-		};
-		928B9EB118BFF70C008E63E8 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				928B9EB218BFF70C008E63E8 /* StableFluidsTests-Info.plist */,
-				928B9EB318BFF70C008E63E8 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -317,41 +197,6 @@
 			productReference = 921AA7B2187E4EF800F40931 /* OrientationTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		928B9E8218BFF70C008E63E8 /* StableFluids */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 928B9EBC18BFF70C008E63E8 /* Build configuration list for PBXNativeTarget "StableFluids" */;
-			buildPhases = (
-				928B9E7F18BFF70C008E63E8 /* Sources */,
-				928B9E8018BFF70C008E63E8 /* Frameworks */,
-				928B9E8118BFF70C008E63E8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = StableFluids;
-			productName = StableFluids;
-			productReference = 928B9E8318BFF70C008E63E8 /* StableFluids.app */;
-			productType = "com.apple.product-type.application";
-		};
-		928B9EA918BFF70C008E63E8 /* StableFluidsTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 928B9EBD18BFF70C008E63E8 /* Build configuration list for PBXNativeTarget "StableFluidsTests" */;
-			buildPhases = (
-				928B9EA618BFF70C008E63E8 /* Sources */,
-				928B9EA718BFF70C008E63E8 /* Frameworks */,
-				928B9EA818BFF70C008E63E8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				928B9EAF18BFF70C008E63E8 /* PBXTargetDependency */,
-			);
-			name = StableFluidsTests;
-			productName = StableFluidsTests;
-			productReference = 928B9EAA18BFF70C008E63E8 /* StableFluidsTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -362,9 +207,6 @@
 				ORGANIZATIONNAME = "Bo Wu";
 				TargetAttributes = {
 					921AA7B1187E4EF800F40931 = {
-						TestTargetID = 921AA78D187E4EF800F40931;
-					};
-					928B9EA918BFF70C008E63E8 = {
 						TestTargetID = 921AA78D187E4EF800F40931;
 					};
 				};
@@ -384,8 +226,6 @@
 			targets = (
 				921AA78D187E4EF800F40931 /* Orientation */,
 				921AA7B1187E4EF800F40931 /* OrientationTests */,
-				928B9E8218BFF70C008E63E8 /* StableFluids */,
-				928B9EA918BFF70C008E63E8 /* StableFluidsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -410,27 +250,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		928B9E8118BFF70C008E63E8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				928B9E9E18BFF70C008E63E8 /* Shader.fsh in Resources */,
-				928B9E9C18BFF70C008E63E8 /* Main_iPad.storyboard in Resources */,
-				928B9E9918BFF70C008E63E8 /* Main_iPhone.storyboard in Resources */,
-				928B9EA518BFF70C008E63E8 /* Images.xcassets in Resources */,
-				928B9E9018BFF70C008E63E8 /* InfoPlist.strings in Resources */,
-				928B9EA018BFF70C008E63E8 /* Shader.vsh in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		928B9EA818BFF70C008E63E8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				928B9EB518BFF70C008E63E8 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -452,24 +271,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		928B9E7F18BFF70C008E63E8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				928B9EA318BFF70C008E63E8 /* ViewController.m in Sources */,
-				928B9E9618BFF70C008E63E8 /* AppDelegate.m in Sources */,
-				928B9E9218BFF70C008E63E8 /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		928B9EA618BFF70C008E63E8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				928B9EB718BFF70C008E63E8 /* StableFluidsTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -477,11 +278,6 @@
 			isa = PBXTargetDependency;
 			target = 921AA78D187E4EF800F40931 /* Orientation */;
 			targetProxy = 921AA7B7187E4EF800F40931 /* PBXContainerItemProxy */;
-		};
-		928B9EAF18BFF70C008E63E8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 928B9E8218BFF70C008E63E8 /* StableFluids */;
-			targetProxy = 928B9EAE18BFF70C008E63E8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -514,38 +310,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				921AA7BD187E4EF800F40931 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		928B9E8E18BFF70C008E63E8 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				928B9E8F18BFF70C008E63E8 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		928B9E9718BFF70C008E63E8 /* Main_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				928B9E9818BFF70C008E63E8 /* Base */,
-			);
-			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		928B9E9A18BFF70C008E63E8 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				928B9E9B18BFF70C008E63E8 /* Base */,
-			);
-			name = Main_iPad.storyboard;
-			sourceTree = "<group>";
-		};
-		928B9EB318BFF70C008E63E8 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				928B9EB418BFF70C008E63E8 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -691,76 +455,6 @@
 			};
 			name = Release;
 		};
-		928B9EB818BFF70C008E63E8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "StableFluids/StableFluids-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "StableFluids/StableFluids-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		928B9EB918BFF70C008E63E8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "StableFluids/StableFluids-Prefix.pch";
-				INFOPLIST_FILE = "StableFluids/StableFluids-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		928B9EBA18BFF70C008E63E8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Orientation.app/Orientation";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "StableFluids/StableFluids-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "StableFluidsTests/StableFluidsTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		928B9EBB18BFF70C008E63E8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Orientation.app/Orientation";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "StableFluids/StableFluids-Prefix.pch";
-				INFOPLIST_FILE = "StableFluidsTests/StableFluidsTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -787,24 +481,6 @@
 			buildConfigurations = (
 				921AA7C7187E4EF800F40931 /* Debug */,
 				921AA7C8187E4EF800F40931 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		928B9EBC18BFF70C008E63E8 /* Build configuration list for PBXNativeTarget "StableFluids" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				928B9EB818BFF70C008E63E8 /* Debug */,
-				928B9EB918BFF70C008E63E8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		928B9EBD18BFF70C008E63E8 /* Build configuration list for PBXNativeTarget "StableFluidsTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				928B9EBA18BFF70C008E63E8 /* Debug */,
-				928B9EBB18BFF70C008E63E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

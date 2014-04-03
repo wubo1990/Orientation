@@ -9,11 +9,6 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>StableFluids.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
-		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -23,16 +18,6 @@
 			<true/>
 		</dict>
 		<key>921AA7B1187E4EF800F40931</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>928B9E8218BFF70C008E63E8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>928B9EA918BFF70C008E63E8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

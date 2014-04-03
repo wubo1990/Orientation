@@ -38,16 +38,6 @@
                ReferencedContainer = "container:Orientation.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "928B9EA918BFF70C008E63E8"
-               BuildableName = "StableFluidsTests.xctest"
-               BlueprintName = "StableFluidsTests"
-               ReferencedContainer = "container:Orientation.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

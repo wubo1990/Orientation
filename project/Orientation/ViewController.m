@@ -55,8 +55,6 @@ double previousTime;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    gyroQueue = [[NSOperationQueue alloc]init];
 }
 
 - (IBAction)startUpdatesWithSliderValue:(id)sender
@@ -156,7 +154,7 @@ double previousTime;
                 previousTime = sampleTime;
                 
                 
-                //NSLog(@"different time: %f", diffTime);
+                NSLog(@"different time: %f", diffTime);
                 
                 //Set the current quaternion to the previous quaternion
                 double previousQX = nQX;
@@ -185,7 +183,7 @@ double previousTime;
                     nQZ = nQZ / magnitude;
                     nQW = nQW / magnitude;
                 }
-
+                
                 
                 //The rotation matrix from the calculated quaternion
                 double nqm11 = nQW * nQW + nQX * nQX - nQY * nQY - nQZ * nQZ;
@@ -223,7 +221,7 @@ double previousTime;
                 qpX1 = nQW * iX1 + nQY * iZ1 - nQZ * iY1;
                 qpY1 = nQW * iY1 - nQX * iZ1 + nQZ * iX1;
                 qpZ1 = nQW * iZ1 + nQX * iY1 - nQY * iX1;
-
+                
                 //The result vector
                 rX1 = - qpW1 * nQX + qpX1 * nQW - qpY1 * nQZ + qpZ1 * nQY;
                 rY1 = - qpW1 * nQY + qpX1 * nQZ + qpY1 * nQW - qpZ1 * nQX;
@@ -239,7 +237,7 @@ double previousTime;
                 
                 NSString *resultZ1 = [[NSString alloc]initWithFormat:@"z: %06f", rZ1];
                 Z1.text = resultZ1;
-
+                
                 double rX2 = 0.0;
                 double rY2 = 0.0;
                 double rZ2 = 0.0;
@@ -290,18 +288,20 @@ double previousTime;
     }
     
     
-     if ([motionManager isAccelerometerAvailable]) {
+    if ([motionManager isAccelerometerAvailable]) {
         if (![motionManager isAccelerometerActive]) {
             [motionManager setAccelerometerUpdateInterval:updateInterval];
             [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accData, NSError *error){
-                double aX = accData.acceleration.x;
-                double aY = accData.acceleration.y;
-                double aZ = accData.acceleration.z;
-             
-                //NSLog(@"AcX: %f", aX);
-                //NSLog(@"AcY: %f", aY);
-                //NSLog(@"AcZ: %f", aZ);
-             
+                
+                //Data from accelerometer
+                //double aX = accData.acceleration.x;
+                //double aY = accData.acceleration.y;
+                //double aZ = accData.acceleration.z;
+                
+                //Sg from equation 4
+                //double SgX = aX / sqrt(aX * aX + aY * aY + aZ * aZ);
+                //double SgY = aY / sqrt(aX * aX + aY * aY + aZ * aZ);
+                //double SgZ = aZ / sqrt(aX * aX + aY * aY + aZ * aZ);
             }];
         }
     }
@@ -311,13 +311,16 @@ double previousTime;
         if (![motionManager isMagnetometerActive]) {
             [motionManager setMagnetometerUpdateInterval:updateInterval];
             [motionManager startMagnetometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMMagnetometerData *magData, NSError *error){
-                double mX = magData.magneticField.x;
-                double mY = magData.magneticField.y;
-                double mZ = magData.magneticField.z;
                 
-                //NSLog(@"MagX: %f", mX);
-                //NSLog(@"MagY: %f", mY);
-                //NSLog(@"MagZ: %f", mZ);
+                //Data from magnetometer
+                //double mX = magData.magneticField.x;
+                //double mY = magData.magneticField.y;
+                //double mZ = magData.magneticField.z;
+                
+                //Sm from equation 4
+                //double SmX = mX / sqrt(mX * mX + mY * mY + mZ * mZ);
+                //double SmY = mY / sqrt(mX * mX + mY * mY + mZ * mZ);
+                //double SmZ = mZ / sqrt(mX * mX + mY * mY + mZ * mZ);
                 
             }];
         }

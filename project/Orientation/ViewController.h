@@ -28,6 +28,9 @@
 @property(weak, nonatomic) IBOutlet UILabel *measuredFrequencyLabel;
 
 
+
+
+
 - (IBAction)startUpdatesWithSliderValue:(id)sender;
 
 @end
