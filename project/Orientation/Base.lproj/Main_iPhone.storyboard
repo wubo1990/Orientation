@@ -116,7 +116,8 @@
                         <outlet property="Y2" destination="9S5-D9-wcu" id="T0B-Av-fp3"/>
                         <outlet property="Z1" destination="QjS-nh-NTg" id="XGq-3Q-FGr"/>
                         <outlet property="Z2" destination="gzt-cF-9Ms" id="VBS-aX-FbM"/>
-                        <outlet property="updateFrequencyLabel" destination="lWL-Vm-Tui" id="gp4-gT-Ua3"/>
+                        <outlet property="measuredFrequencyLabel" destination="lWL-Vm-Tui" id="4L7-S7-z1v"/>
+                        <outlet property="updateFrequencyLabel" destination="4Z5-YT-9C8" id="H4G-O8-N3M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

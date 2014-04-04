@@ -46,6 +46,21 @@ double iX2;
 double iY2;
 double iZ2;
 
+//Fixed reference unit vectors of the gravity
+double FgX = 0.0;
+double FgY = 0.0;
+double FgZ = -1.0;
+
+//The time-invariant magnetic field expressed
+double FmX = 0.0;
+double FmY = 1.0;
+double FmZ = 0.0;
+
+//The Roation Matrix
+double rotationMatrix[3][3];
+
+double diffSmX, diffSmY, diffSmZ, diffSgX, diffSgY, diffSgZ;
+
 int i;
 
 double sampleTime;
@@ -117,6 +132,17 @@ double previousTime;
                 double m11 = rm.m11; double m12 = rm.m12; double m13 = rm.m13;
                 double m21 = rm.m21; double m22 = rm.m22; double m23 = rm.m23;
                 double m31 = rm.m31; double m32 = rm.m32; double m33 = rm.m33;
+                
+                rotationMatrix[0][0] = m11;
+                rotationMatrix[0][1] = m12;
+                rotationMatrix[0][2] = m13;
+                rotationMatrix[1][0] = m21;
+                rotationMatrix[1][1] = m22;
+                rotationMatrix[1][2] = m23;
+                rotationMatrix[2][0] = m31;
+                rotationMatrix[2][1] = m32;
+                rotationMatrix[2][2] = m33;
+                
                 
                 //The quaterion form the attitude
                 double qX = quat.x;
@@ -274,7 +300,7 @@ double previousTime;
                 
                 int measuredFrequency = 1 / diffTime;
                 
-                NSString *measureedFrquencyString = [[NSString alloc]initWithFormat:@"%d", measuredFrequency];
+                NSString *measureedFrquencyString = [[NSString alloc]initWithFormat:@"%d Hz", measuredFrequency];
                 measuredFrequencyLabel.text = measureedFrquencyString;
                 
                 i++;
@@ -294,14 +320,25 @@ double previousTime;
             [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accData, NSError *error){
                 
                 //Data from accelerometer
-                //double aX = accData.acceleration.x;
-                //double aY = accData.acceleration.y;
-                //double aZ = accData.acceleration.z;
+                double aX = accData.acceleration.x;
+                double aY = accData.acceleration.y;
+                double aZ = accData.acceleration.z;
                 
                 //Sg from equation 4
-                //double SgX = aX / sqrt(aX * aX + aY * aY + aZ * aZ);
-                //double SgY = aY / sqrt(aX * aX + aY * aY + aZ * aZ);
-                //double SgZ = aZ / sqrt(aX * aX + aY * aY + aZ * aZ);
+                double SgX = aX / sqrt(aX * aX + aY * aY + aZ * aZ);
+                double SgY = aY / sqrt(aX * aX + aY * aY + aZ * aZ);
+                double SgZ = aZ / sqrt(aX * aX + aY * aY + aZ * aZ);
+                
+                //Sg from equation 5
+                double sGX = rotationMatrix[0][0] * FgX + rotationMatrix[0][1] * FgY + rotationMatrix[0][2] * FgZ;
+                double sGY = rotationMatrix[1][0] * FgX + rotationMatrix[1][1] * FgY + rotationMatrix[1][2] * FgZ;
+                double sGZ = rotationMatrix[2][0] * FgX + rotationMatrix[2][1] * FgY + rotationMatrix[2][2] * FgZ;
+                
+                diffSgX = SgX - sGX;
+                diffSgY = SgY - sGY;
+                diffSgZ = SgZ - sGZ;
+                
+                NSLog(@"Sg %f, %f, %f", SgX, SgY, SgZ);
             }];
         }
     }
@@ -313,14 +350,27 @@ double previousTime;
             [motionManager startMagnetometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMMagnetometerData *magData, NSError *error){
                 
                 //Data from magnetometer
-                //double mX = magData.magneticField.x;
-                //double mY = magData.magneticField.y;
-                //double mZ = magData.magneticField.z;
+                double mX = magData.magneticField.x;
+                double mY = magData.magneticField.y;
+                double mZ = magData.magneticField.z;
                 
                 //Sm from equation 4
-                //double SmX = mX / sqrt(mX * mX + mY * mY + mZ * mZ);
-                //double SmY = mY / sqrt(mX * mX + mY * mY + mZ * mZ);
-                //double SmZ = mZ / sqrt(mX * mX + mY * mY + mZ * mZ);
+                double SmX = mX / sqrt(mX * mX + mY * mY + mZ * mZ);
+                double SmY = mY / sqrt(mX * mX + mY * mY + mZ * mZ);
+                double SmZ = mZ / sqrt(mX * mX + mY * mY + mZ * mZ);
+                NSLog(@"Sm %f, %f, %f", SmX, SmY, SmZ);
+                
+                //Sm from equation 5
+                double sMX = rotationMatrix[0][0] * FmX + rotationMatrix[0][1] * FmY + rotationMatrix[0][2] * FmZ;
+                double sMY = rotationMatrix[1][0] * FmX + rotationMatrix[1][1] * FmY + rotationMatrix[1][2] * FmZ;
+                double sMZ = rotationMatrix[2][0] * FmX + rotationMatrix[2][1] * FmY + rotationMatrix[2][2] * FmZ;
+                
+                diffSmX = SmX - sMX;
+                diffSmX = SmY - sMY;
+                diffSmZ = SmZ - sMZ;
+                
+                //Equation 6
+                double loss = 0.5 * (0.5 * (diffSgX * diffSgX + diffSgY * diffSgY + diffSgZ * diffSgZ) + 0.5 * (diffSmX * diffSmX + diffSmY * diffSmY + diffSmZ * diffSmZ));
                 
             }];
         }
