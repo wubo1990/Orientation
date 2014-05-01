@@ -23,7 +23,7 @@ for i = 2:len-1
     Wz = GD(i,3);
     dt = GD(i,4) - GD(i-1,4);
     omiga=[0, -Wz, Wy, Wx; Wz, 0, -Wx, Wy; -Wy, Wx, 0, Wz; Wx, Wy, Wz, 0];
-    q=(I4+dt*omiga)*qPrev;
+    q=(I4+1/2*dt*omiga)*qPrev;
     nq=q/norm(q);
     qinvers=[-nq(1);-nq(2);-nq(3);-nq(4)];
     
