@@ -30,6 +30,12 @@
 
 @synthesize measuredFrequencyLabel;
 
+
+@synthesize Mx;
+@synthesize My;
+@synthesize Mz;
+
+
 //Quaternion from the updating of the previous quaternion, named as new quaternion
 double nQX;
 double nQY;
@@ -109,12 +115,12 @@ double previousTime;
     motionManager = [[CMMotionManager alloc] init];
     
     //Set up the device updating interval
-    motionManager.deviceMotionUpdateInterval = updateInterval;
+    //motionManager.deviceMotionUpdateInterval = updateInterval;
     
     //Start the device motion updating
     [motionManager startDeviceMotionUpdates];
-    if ([motionManager isGyroAvailable]) {
-        if (![motionManager isGyroActive]) {
+    //if ([motionManager isGyroAvailable]) {
+        //if (![motionManager isGyroActive]) {
             //Set up the gyro updating interval
             [motionManager setGyroUpdateInterval:updateInterval];
             //The push approach
@@ -161,10 +167,7 @@ double previousTime;
                 double qm32 = 2 * qY * qZ + 2 * qX * qW;
                 double qm33 = qW * qW - qX * qX - qY * qY + qZ * qZ;
                 
-                //double diffM11 = m11 - qm11; double diffM12 = m12 - qm12; double diffM13 = m13 - qm13;
-                //double diffM21 = m21 - qm21; double diffM22 = m22 - qm22; double diffM23 = m23 - qm23;
-                //double diffM31 = m31 - qm31; double diffM32 = m32 - qm32; double diffM33 = m33 - qm33;
-                
+                /*
                 NSLog(@"m1: %f, %f, %f", m11, m12, m13);
                 NSLog(@"m1: %f, %f, %f", m21, m22, m23);
                 NSLog(@"m1: %f, %f, %f", m31, m32, m33);
@@ -172,7 +175,8 @@ double previousTime;
                 NSLog(@"m2: %f, %f, %f", qm11, qm12, qm13);
                 NSLog(@"m2: %f, %f, %f", qm21, qm22, qm23);
                 NSLog(@"m2: %f, %f, %f", qm31, qm32, qm33);
-                
+                */
+                 
                 
                 //Timestamp of the gyro data
                 sampleTime = gyroData.timestamp;
@@ -180,7 +184,7 @@ double previousTime;
                 previousTime = sampleTime;
                 
                 
-                NSLog(@"different time: %f", diffTime);
+                //NSLog(@"different time: %f", diffTime);
                 
                 //Set the current quaternion to the previous quaternion
                 double previousQX = nQX;
@@ -192,8 +196,8 @@ double previousTime;
                 double rotationX = gyroData.rotationRate.x;
                 double rotationY = gyroData.rotationRate.y;
                 double rotationZ = gyroData.rotationRate.z;
-                
-                
+            
+                NSLog(@"Rotation Rate: %f, %f, %f", rotationX, rotationY, rotationZ);
                 
                 if (i >= 1) {
                     //Calculate the new quarternion from the previous quarternion and ratation rate by the the equation 7
@@ -210,6 +214,7 @@ double previousTime;
                     nQW = nQW / magnitude;
                 }
                 
+                /*
                 
                 //The rotation matrix from the calculated quaternion
                 double nqm11 = nQW * nQW + nQX * nQX - nQY * nQY - nQZ * nQZ;
@@ -221,16 +226,14 @@ double previousTime;
                 double nqm31 = 2 * nQX * nQZ - 2 * nQY * nQW;
                 double nqm32 = 2 * nQY * nQZ + 2 * nQX * nQW;
                 double nqm33 = nQW * nQW - nQX * nQX - nQY * nQY + nQZ * nQZ;
-                
-                //double dm11 = m11 - nqm11; double dm12 = m12 - nqm12; double dm13 = m13 - nqm13;
-                //double dm21 = m21 - nqm21; double dm22 = m22 - nqm22; double dm23 = m23 - nqm23;
-                //double dm31 = m31 - nqm31; double dm32 = m32 - nqm32; double dm33 = m33 - nqm33;
+
                 
                 NSLog(@"m3: %f, %f, %f", nqm11, nqm12, nqm13);
                 NSLog(@"m3: %f, %f, %f", nqm21, nqm22, nqm23);
                 NSLog(@"m3: %f, %f, %f", nqm31, nqm32, nqm33);
                 
-                
+                */
+                 
                 //Initialze the result vector
                 double rX1 = 0.0;
                 double rY1 = 0.0;
@@ -248,10 +251,16 @@ double previousTime;
                 qpY1 = nQW * iY1 - nQX * iZ1 + nQZ * iX1;
                 qpZ1 = nQW * iZ1 + nQX * iY1 - nQY * iX1;
                 
-                //The result vector
+                //The result vector1
                 rX1 = - qpW1 * nQX + qpX1 * nQW - qpY1 * nQZ + qpZ1 * nQY;
                 rY1 = - qpW1 * nQY + qpX1 * nQZ + qpY1 * nQW - qpZ1 * nQX;
                 rZ1 = - qpW1 * nQZ - qpX1 * nQY + qpY1 * nQX + qpZ1 * nQW;
+                
+                double magnitudeR1 = sqrt(rX1 * rX1 + rY1 * rY1 * rZ1 * rZ1);
+                
+                rX1 = rX1 / magnitudeR1;
+                rY1 = rY1 / magnitudeR1;
+                rZ1 = rZ1 / magnitudeR1;
                 
                 //Output the result vector
                 NSString *resultX1 = [[NSString alloc]initWithFormat:@"x: %06f", rX1];
@@ -259,7 +268,6 @@ double previousTime;
                 
                 NSString *resultY1 = [[NSString alloc]initWithFormat:@"y: %06f", rY1];
                 Y1.text = resultY1;
-                
                 
                 NSString *resultZ1 = [[NSString alloc]initWithFormat:@"z: %06f", rZ1];
                 Z1.text = resultZ1;
@@ -273,6 +281,8 @@ double previousTime;
                 double qpZ2 = 0.0;
                 double qpW2 = 0.0;
                 
+                NSLog(@"Quaternion: %f, %f, %f, %f", nQX, nQY, nQZ, nQW);
+                
                 //Compute the second vector
                 qpW2 = - nQX * iX2 - nQY * iY2 - nQZ * iZ2;
                 qpX2 = nQW * iX2 + nQY * iZ2 - nQZ * iY2;
@@ -284,9 +294,11 @@ double previousTime;
                 rY2 = - qpW2 * nQY + qpX2 * nQZ + qpY2 * nQW - qpZ2 * nQX;
                 rZ2 = - qpW2 * nQZ - qpX2 * nQY + qpY2 * nQX + qpZ2 * nQW;
                 
-                //double secondTime = gyroData.timestamp;
-                //NSLog(@"Second Time: %f", secondTime);
+                double magnitudeR2 = sqrt(rX2 * rX2 + rY2 * rY2 + rZ2 * rZ2);
                 
+                rX2 = rX2 / magnitudeR2;
+                rY2 = rY2 / magnitudeR2;
+                rZ2 = rZ2 / magnitudeR2;
                 
                 //Output the second vector
                 NSString *resultX2 = [[NSString alloc]initWithFormat:@"x: %06f", rX2];
@@ -306,8 +318,9 @@ double previousTime;
                 i++;
                 
             }];
-        }
-    }
+        //}
+    //}
+            /*
     else{
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"NO GYRO" message:@"GET A GYRO" delegate:self cancelButtonTitle:@"DONE" otherButtonTitles: nil];
         [alert show];
@@ -316,6 +329,7 @@ double previousTime;
     
     if ([motionManager isAccelerometerAvailable]) {
         if (![motionManager isAccelerometerActive]) {
+             */
             [motionManager setAccelerometerUpdateInterval:updateInterval];
             [motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMAccelerometerData *accData, NSError *error){
                 
@@ -340,12 +354,12 @@ double previousTime;
                 
                 NSLog(@"Sg %f, %f, %f", SgX, SgY, SgZ);
             }];
-        }
-    }
+        //}
+    //}
     
     
-    if ([motionManager isMagnetometerAvailable]) {
-        if (![motionManager isMagnetometerActive]) {
+    //if ([motionManager isMagnetometerAvailable]) {
+        //if (![motionManager isMagnetometerActive]) {
             [motionManager setMagnetometerUpdateInterval:updateInterval];
             [motionManager startMagnetometerUpdatesToQueue:[NSOperationQueue mainQueue] withHandler:^(CMMagnetometerData *magData, NSError *error){
                 
@@ -358,24 +372,31 @@ double previousTime;
                 double SmX = mX / sqrt(mX * mX + mY * mY + mZ * mZ);
                 double SmY = mY / sqrt(mX * mX + mY * mY + mZ * mZ);
                 double SmZ = mZ / sqrt(mX * mX + mY * mY + mZ * mZ);
-                NSLog(@"Sm %f, %f, %f", SmX, SmY, SmZ);
+                //NSLog(@"Sm %f, %f, %f", SmX, SmY, SmZ);
+                
+                
+                Mx.text = [[NSString alloc]initWithFormat:@"mX: %f", SmX];
+                My.text = [[NSString alloc]initWithFormat:@"mY: %f", SmY];
+                Mz.text = [[NSString alloc]initWithFormat:@"mZ: %f", SmZ];
                 
                 //Sm from equation 5
                 double sMX = rotationMatrix[0][0] * FmX + rotationMatrix[0][1] * FmY + rotationMatrix[0][2] * FmZ;
                 double sMY = rotationMatrix[1][0] * FmX + rotationMatrix[1][1] * FmY + rotationMatrix[1][2] * FmZ;
                 double sMZ = rotationMatrix[2][0] * FmX + rotationMatrix[2][1] * FmY + rotationMatrix[2][2] * FmZ;
                 
+                
+                
+                
                 diffSmX = SmX - sMX;
                 diffSmX = SmY - sMY;
                 diffSmZ = SmZ - sMZ;
                 
                 //Equation 6
-                double loss = 0.5 * (0.5 * (diffSgX * diffSgX + diffSgY * diffSgY + diffSgZ * diffSgZ) + 0.5 * (diffSmX * diffSmX + diffSmY * diffSmY + diffSmZ * diffSmZ));
-                
+                //double loss = 0.5 * (0.5 * (diffSgX * diffSgX + diffSgY * diffSgY + diffSgZ * diffSgZ) + 0.5 * (diffSmX * diffSmX + diffSmY * diffSmY + diffSmZ * diffSmZ));
             }];
-        }
-    }
-    
+        //}
+    //}
+
     self.updateFrequencyLabel.text = [NSString stringWithFormat:@"%ld HZ", (long)updateFrequency];
 }
 

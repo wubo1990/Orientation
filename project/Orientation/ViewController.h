@@ -27,7 +27,9 @@
 @property(weak, nonatomic) IBOutlet UILabel *updateFrequencyLabel;
 @property(weak, nonatomic) IBOutlet UILabel *measuredFrequencyLabel;
 
-
+@property(weak, nonatomic) IBOutlet UILabel *Mx;
+@property(weak, nonatomic) IBOutlet UILabel *My;
+@property(weak, nonatomic) IBOutlet UILabel *Mz;
 
 
 
